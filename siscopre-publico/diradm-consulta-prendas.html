@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Direcci&oacute;n de Administraci&oacute;n - PNP</title>
+  <meta content="Direccion de Administracion de la Policia Nacional del Peru" name="description">
+  <meta content="DIRADM, PNP, Policia, Peru, Direccion, Administracion" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Raleway:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="assets/css/main.css" rel="stylesheet">
+</head>
+
+<body class="sections-bg">
+
+  <main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <div class="breadcrumbs">
+      <div class="page-header d-flex align-items-center p-2" style="background-image: url(''); min-height: 13vh;">
+        <div class="container-fluid position-relative">
+          <div class="row d-flex justify-content-center">
+            <div class="col-lg-2 text-center">
+                <img src="assets/img/logopnp.png" alt=""></div>
+            <div class="col-lg-10 text-center text-white pt-3">
+              <h3>PUGAV - Consulta prendas policiales</h3></div>
+          </div>
+        </div>
+      </div>
+    </div><!-- End Breadcrumbs -->
+
+    
+
+    <section id="frmConsulta" class="pricing p-4">
+        <div class="container-fluid" data-aos="fade-up">
+  
+            <div class="row g-4" data-aos="zoom-out" data-aos-delay="100">
+                <div class="pricing-item col-12">
+                        <div class="form-group mb-3">
+                            <small id="emailHelp" class="form-text text-muted">Complete todos los datos solicitados:</small>
+                          <!-- <label for="dni">DNI</label> -->
+                          <input type="text" class="form-control" id="dni" aria-describedby="dniHelp" placeholder="DNI">
+                          <!-- <small id="emailHelp" class="form-text text-muted">Ingrese su DNI.</small> -->
+                        </div>
+                        <div class="form-group mb-3">
+                            <!-- <label for="cip">CIP</label> -->
+                            <input type="text" class="form-control" id="cip" aria-describedby="cipHelp" placeholder="CIP">
+                            <!-- <small id="emailHelp" class="form-text text-muted">Ingrese su DNI.</small> -->
+                        </div>
+                        <div class="form-group mb-3">
+                            <!-- <label for="codofin">CODOFIN</label> -->
+                            <input type="text" class="form-control" id="codofin" aria-describedby="codofinHelp" placeholder="CODOFIN">
+                            <!-- <small id="emailHelp" class="form-text text-muted">Ingrese su DNI.</small> -->
+                        </div>
+                        <button id="idBtnConsultar" onclick="search()" class="btn btn-success sr-only">Consultar </button>
+          
+                </div>
+            </div>
+
+            
+        </div>
+    </section>
+
+    
+
+    <section id="idTablaResultado" class="px-3 pt-0">
+        <div id="idConsultaPrenda" class="container-fluid" data-aos="fade-up">
+            
+   
+        </div>
+    </section>
+        
+
+
+  </main><!-- End #main -->
+
+
+  <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+  <script>
+
+    function showSpinner(){
+      const btnConsultar = document.getElementById('idBtnConsultar');
+      btnConsultar.disabled = true;
+      while(btnConsultar.firstChild) {
+        btnConsultar.removeChild(btnConsultar.firstChild);
+      }
+      var htmlSpinner = `<span id="idSpinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Consultando...`;
+      btnConsultar.innerHTML += htmlSpinner;
+    }
+
+
+    function removeSpinner(){
+      const btnConsultar = document.getElementById('idBtnConsultar');
+      btnConsultar.disabled = true;
+      while(btnConsultar.firstChild) {
+        btnConsultar.removeChild(btnConsultar.firstChild);
+      }
+    }
+
+    function cleanButton(){
+      const btnConsultar = document.getElementById('idBtnConsultar');
+      btnConsultar.disabled = false;
+      while(btnConsultar.firstChild) {
+        btnConsultar.removeChild(btnConsultar.firstChild);
+      }
+      var htmlSpinner = `Consultar`;
+      btnConsultar.innerHTML += htmlSpinner;
+    }
+
+    function clearInputs(){
+      document.getElementById("cip").value = '';
+      document.getElementById("dni").value = '';
+      document.getElementById("codofin").value = '';
+    }
+
+    function search(){
+      const container = document.getElementById('idConsultaPrenda');
+      while(container.firstChild) {
+        container.removeChild(container.firstChild);
+      }
+      showSpinner();
+      fetch('https://200.4.213.117:88/pugav-siscopre-backend/public/listaGroup', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              "cip": document.getElementById("cip").value.trim(),
+              "codofin": document.getElementById("codofin").value.trim(),
+              "dni": document.getElementById("dni").value.trim()
+            })
+        })
+        .catch(error => {
+          removeSpinner();
+          cleanButton();
+          clearInputs();
+        })
+        .then(response => response.json())
+        .then(response => {
+
+                      var html = `<div class="card mb-3">
+                            <div class="card-body">
+                              <div><h2><strong>` + response.body[0].gradoDesc + ` ` + response.body[0].nombresCompletos + `</strong><h2></div>
+                                <div><strong>CIP: </strong>` + response.body[0].cip + `</div>
+                            </div>
+                        </div>` ;
+
+
+                      for(var i in response.body){
+                          html += `<div class="card mb-5">
+                                        <div class="card-header">
+                                          <div><h2><strong>PROCESO ` + response.body[i].procesoDesc + `</strong><h2></div>
+                                          <div>UNID. DISTRIBUCIÓN: ` + response.body[i].unidDistDesc + `</div>
+                                          <div>UBICACIÓN: ` + response.body[i].depaDesc + `/` + response.body[i].provDesc + `/` + response.body[i].distDesc + `</div>
+                                          <div>LUGAR DE RECOJO: ` + response.body[i].fullUniLr + `</div>
+                                          <div>CONTACTOS: 
+                                              <span>` + response.body[i].contacto + `</span>
+                                          </div>
+                                        </div>
+                                        <div class="card-body">
+                                          <table class="table table-hover table-responsive">
+                                            <thead class="table-dark">
+                                                <tr>
+                                                    <th width="5%;">PRENDA</th>
+                                                    <th width="5%;">CANTIDAD</th>
+                                                    <th width="5%;">MEDIDA</th>
+                                                    <th width="5%;">ESTADO</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>`
+
+                          for(var j in response.body[i].responseConsultaAsignaPrendaDTOList) {                
+                              html += `<tr>`;
+                              html += `<td>` + response.body[i].responseConsultaAsignaPrendaDTOList[j].tipoPrendaDesc + `</td>`;
+                              html += `<td>` + response.body[i].responseConsultaAsignaPrendaDTOList[j].cantidad + `</td>`;
+                              html += `<td>` + response.body[i].responseConsultaAsignaPrendaDTOList[j].medida + `</td>`;
+                              html += `<td>` + (response.body[i].responseConsultaAsignaPrendaDTOList[j].estado==1?'EN CONFECCIÓN':(response.body[i].responseConsultaAsignaPrendaDTOList[j].estado==2?'PARA TRASLADO':'POR RECOGER')) + `</td>`;
+                              html += `</tr>`;
+                          }
+                          html += `</tbody></table></div></div>`;
+
+
+                      }
+                      
+                      const container = document.getElementById('idConsultaPrenda');
+                      container.innerHTML += html;
+                      removeSpinner();
+                      cleanButton();
+                      clearInputs();
+        });
+    }
+
+
+  </script>
+</body>
+
+</html>
